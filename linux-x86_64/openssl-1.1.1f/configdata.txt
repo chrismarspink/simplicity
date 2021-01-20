@@ -1,0 +1,283 @@
+
+Command line (with current working directory = .):
+
+    /usr/bin/perl ./Configure linux-x86_64 zlib CFLAGS=-g
+
+Perl information:
+
+    /usr/bin/perl
+    5.26.1 for x86_64-linux-gnu-thread-multi
+
+Enabled features:
+
+    afalgeng
+    aria
+    lea
+    asm
+    async
+    autoalginit
+    autoerrinit
+    autoload-config
+    bf
+    blake2
+    buildtest-c\+\+
+    camellia
+    capieng
+    cast
+    chacha
+    cmac
+    cms
+    comp
+    ct
+    deprecated
+    des
+    dgram
+    dh
+    dsa
+    dso
+    dtls
+    dynamic-engine
+    ec
+    ec2m
+    ecdh
+    ecdsa
+    engine
+    err
+    filenames
+    gost
+    hw(-.+)?
+    idea
+    makedepend
+    md4
+    mdc2
+    multiblock
+    nextprotoneg
+    pinshared
+    ocb
+    ocsp
+    pic
+    poly1305
+    posix-io
+    psk
+    rc2
+    rc4
+    rdrand
+    rfc3779
+    rmd160
+    scrypt
+    seed
+    shared
+    siphash
+    sm2
+    sm3
+    sm4
+    sock
+    srp
+    srtp
+    sse2
+    ssl
+    static-engine
+    stdio
+    tests
+    threads
+    tls
+    ts
+    ui-console
+    whirlpool
+    zlib
+    tls1
+    tls1-method
+    tls1_1
+    tls1_1-method
+    tls1_2
+    tls1_2-method
+    tls1_3
+    dtls1
+    dtls1-method
+    dtls1_2
+    dtls1_2-method
+
+Disabled features:
+
+    asan                    [default] OPENSSL_NO_ASAN
+    crypto-mdebug           [default] OPENSSL_NO_CRYPTO_MDEBUG
+    crypto-mdebug-backtrace [default] OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE
+    devcryptoeng            [default] OPENSSL_NO_DEVCRYPTOENG
+    ec_nistp_64_gcc_128     [default] OPENSSL_NO_EC_NISTP_64_GCC_128
+    egd                     [default] OPENSSL_NO_EGD
+    external-tests          [default] OPENSSL_NO_EXTERNAL_TESTS
+    fuzz-libfuzzer          [default] OPENSSL_NO_FUZZ_LIBFUZZER
+    fuzz-afl                [default] OPENSSL_NO_FUZZ_AFL
+    heartbeats              [default] OPENSSL_NO_HEARTBEATS
+    md2                     [default] OPENSSL_NO_MD2 (skip crypto/md2)
+    msan                    [default] OPENSSL_NO_MSAN
+    rc5                     [default] OPENSSL_NO_RC5 (skip crypto/rc5)
+    sctp                    [default] OPENSSL_NO_SCTP
+    ssl-trace               [default] OPENSSL_NO_SSL_TRACE
+    ubsan                   [default] OPENSSL_NO_UBSAN
+    unit-test               [default] OPENSSL_NO_UNIT_TEST
+    weak-ssl-ciphers        [default] OPENSSL_NO_WEAK_SSL_CIPHERS
+    zlib-dynamic            [default] 
+    ssl3                    [default] OPENSSL_NO_SSL3
+    ssl3-method             [default] OPENSSL_NO_SSL3_METHOD
+
+Config target attributes:
+
+    AR => "ar",
+    ARFLAGS => "r",
+    CC => "gcc",
+    CFLAGS => "-Wall -O3",
+    CXX => "g++",
+    CXXFLAGS => "-Wall -O3",
+    HASHBANGPERL => "/usr/bin/env perl",
+    RANLIB => "ranlib",
+    RC => "windres",
+    aes_asm_src => "aes_core.c aes_cbc.c vpaes-x86_64.s aesni-x86_64.s aesni-sha1-x86_64.s aesni-sha256-x86_64.s aesni-mb-x86_64.s",
+    aes_obj => "aes_core.o aes_cbc.o vpaes-x86_64.o aesni-x86_64.o aesni-sha1-x86_64.o aesni-sha256-x86_64.o aesni-mb-x86_64.o",
+    apps_aux_src => "",
+    apps_init_src => "",
+    apps_obj => "",
+    bf_asm_src => "bf_enc.c",
+    bf_obj => "bf_enc.o",
+    bn_asm_src => "asm/x86_64-gcc.c x86_64-mont.s x86_64-mont5.s x86_64-gf2m.s rsaz_exp.c rsaz-x86_64.s rsaz-avx2.s",
+    bn_obj => "asm/x86_64-gcc.o x86_64-mont.o x86_64-mont5.o x86_64-gf2m.o rsaz_exp.o rsaz-x86_64.o rsaz-avx2.o",
+    bn_ops => "SIXTY_FOUR_BIT_LONG",
+    build_file => "Makefile",
+    build_scheme => [ "unified", "unix" ],
+    cast_asm_src => "c_enc.c",
+    cast_obj => "c_enc.o",
+    cflags => "-pthread -m64",
+    chacha_asm_src => "chacha-x86_64.s",
+    chacha_obj => "chacha-x86_64.o",
+    cmll_asm_src => "cmll-x86_64.s cmll_misc.c",
+    cmll_obj => "cmll-x86_64.o cmll_misc.o",
+    cppflags => "",
+    cpuid_asm_src => "x86_64cpuid.s",
+    cpuid_obj => "x86_64cpuid.o",
+    cxxflags => "-std=c++11 -pthread -m64",
+    defines => [ "ZLIB" ],
+    des_asm_src => "des_enc.c fcrypt_b.c",
+    des_obj => "des_enc.o fcrypt_b.o",
+    disable => [  ],
+    dso_extension => ".so",
+    dso_scheme => "dlfcn",
+    ec_asm_src => "ecp_nistz256.c ecp_nistz256-x86_64.s x25519-x86_64.s",
+    ec_obj => "ecp_nistz256.o ecp_nistz256-x86_64.o x25519-x86_64.o",
+    enable => [ "afalgeng" ],
+    ex_libs => "-lz -ldl -pthread",
+    exe_extension => "",
+    includes => [  ],
+    keccak1600_asm_src => "keccak1600-x86_64.s",
+    keccak1600_obj => "keccak1600-x86_64.o",
+    lflags => "",
+    lib_cflags => "",
+    lib_cppflags => "-DOPENSSL_USE_NODELETE -DL_ENDIAN",
+    lib_defines => [  ],
+    md5_asm_src => "md5-x86_64.s",
+    md5_obj => "md5-x86_64.o",
+    modes_asm_src => "ghash-x86_64.s aesni-gcm-x86_64.s",
+    modes_obj => "ghash-x86_64.o aesni-gcm-x86_64.o",
+    module_cflags => "-fPIC",
+    module_cxxflags => "",
+    module_ldflags => "-Wl,-znodelete -shared -Wl,-Bsymbolic",
+    multilib => "64",
+    padlock_asm_src => "e_padlock-x86_64.s",
+    padlock_obj => "e_padlock-x86_64.o",
+    perlasm_scheme => "elf",
+    poly1305_asm_src => "poly1305-x86_64.s",
+    poly1305_obj => "poly1305-x86_64.o",
+    rc4_asm_src => "rc4-x86_64.s rc4-md5-x86_64.s",
+    rc4_obj => "rc4-x86_64.o rc4-md5-x86_64.o",
+    rc5_asm_src => "rc5_enc.c",
+    rc5_obj => "rc5_enc.o",
+    rmd160_asm_src => "",
+    rmd160_obj => "",
+    sha1_asm_src => "sha1-x86_64.s sha256-x86_64.s sha512-x86_64.s sha1-mb-x86_64.s sha256-mb-x86_64.s",
+    sha1_obj => "sha1-x86_64.o sha256-x86_64.o sha512-x86_64.o sha1-mb-x86_64.o sha256-mb-x86_64.o",
+    shared_cflag => "-fPIC",
+    shared_defflag => "-Wl,--version-script=",
+    shared_defines => [  ],
+    shared_extension => ".so.\$(SHLIB_VERSION_NUMBER)",
+    shared_extension_simple => ".so",
+    shared_ldflag => "-Wl,-znodelete -shared -Wl,-Bsymbolic",
+    shared_rcflag => "",
+    shared_sonameflag => "-Wl,-soname=",
+    shared_target => "linux-shared",
+    thread_defines => [  ],
+    thread_scheme => "pthreads",
+    unistd => "<unistd.h>",
+    uplink_aux_src => "",
+    uplink_obj => "",
+    wp_asm_src => "wp-x86_64.s",
+    wp_obj => "wp-x86_64.o",
+
+Recorded environment:
+
+    AR = 
+    ARFLAGS = 
+    AS = 
+    ASFLAGS = 
+    BUILDFILE = 
+    CC = 
+    CFLAGS = 
+    CPP = 
+    CPPDEFINES = 
+    CPPFLAGS = 
+    CPPINCLUDES = 
+    CROSS_COMPILE = 
+    CXX = 
+    CXXFLAGS = 
+    HASHBANGPERL = 
+    LD = 
+    LDFLAGS = 
+    LDLIBS = 
+    MT = 
+    MTFLAGS = 
+    OPENSSL_LOCAL_CONFIG_DIR = 
+    PERL = 
+    RANLIB = 
+    RC = 
+    RCFLAGS = 
+    RM = 
+    WINDRES = 
+    __CNF_CFLAGS = 
+    __CNF_CPPDEFINES = 
+    __CNF_CPPFLAGS = 
+    __CNF_CPPINCLUDES = 
+    __CNF_CXXFLAGS = 
+    __CNF_LDFLAGS = 
+    __CNF_LDLIBS = 
+
+Makevars:
+
+    AR              = ar
+    ARFLAGS         = r
+    CC              = gcc
+    CFLAGS          = -g
+    CPPDEFINES      = 
+    CPPFLAGS        = 
+    CPPINCLUDES     = 
+    CXX             = g++
+    CXXFLAGS        = -Wall -O3
+    HASHBANGPERL    = /usr/bin/env perl
+    LDFLAGS         = 
+    LDLIBS          = 
+    PERL            = /usr/bin/perl
+    RANLIB          = ranlib
+    RC              = windres
+    RCFLAGS         = 
+
+NOTE: These variables only represent the configuration view.  The build file
+template may have processed these variables further, please have a look at the
+build file for more exact data:
+    Makefile
+
+build file:
+
+    Makefile
+
+build file templates:
+
+    Configurations/common0.tmpl
+    Configurations/unix-Makefile.tmpl
+    Configurations/common.tmpl

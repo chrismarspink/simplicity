@@ -1,0 +1,5 @@
+GZCMS/GZCMM RELEASE NOTE
+----------------------------------------
+
+2020/10/07 : jkkim
+	- gzpki directory created.

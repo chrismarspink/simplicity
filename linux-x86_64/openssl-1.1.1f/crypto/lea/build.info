@@ -1,0 +1,3 @@
+LIBS=../../libcrypto
+SOURCE[../../libcrypto]=\
+	lea_cbc.c  lea_core.c  lea_ecb.c  lea_misc.c  lea_ofb.c  lea_cfb.c  lea_ctr.c lea_gcm.c  

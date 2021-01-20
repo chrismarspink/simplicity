@@ -1,0 +1,206 @@
+#
+# crypto/lea/Makefile
+#
+
+DIR=	lea
+TOP=	../..
+CC=	cc
+CPP=	$(CC) -E
+INCLUDES=
+CFLAG=-g
+MAKEFILE=	Makefile
+AR=		ar r
+
+LEA_ENC=lea_core.o lea_cbc.o
+
+CFLAGS= $(INCLUDES) $(CFLAG)
+ASFLAGS= $(INCLUDES) $(ASFLAG)
+AFLAGS= $(ASFLAGS)
+
+GENERAL=Makefile
+#TEST=leatest.c
+TEST=
+APPS=
+
+LIB=$(TOP)/libcrypto.a
+LIBSRC=lea_misc.c lea_ecb.c lea_cbc.c lea_cfb.c lea_ofb.c lea_ctr.c lea_gcm.c lea_core.c e_lea.c
+LIBOBJ=lea_misc.o lea_ecb.o lea_cfb.o $(LEA_ENC) lea_ofb.o lea_ctr.o lea_gcm.o e_lea.o
+
+SRC= $(LIBSRC)
+
+EXHEADER= lea.h
+HEADER= lea_locl.h $(EXHEADER)
+
+ALL=    $(GENERAL) $(SRC) $(HEADER)
+
+LEA_SIMD_AVX2=
+LEA_SIMD_SSE2=
+LEA_SIMD_XOP=
+LEA_SIMD_NEON=
+
+ifneq ($(findstring cl,$(CC)),)
+	LEA_CC=vc
+else 
+	ifneq ($(findstring gcc,$(CC)),)
+		LEA_CC=gcc
+	else
+		ifneq ($(shell $(CC) -v 3>&1 2>&1 1>&2 | grep gcc version),)
+			LEA_CC=gcc
+		else
+			LEA_CC=generic
+		endif
+	endif
+endif
+
+ifeq (mem_clr.o, $(CPUID_OBJ))
+	LEA_PLATFORM=generic
+else
+	ifeq (x86_64cpuid.o,$(CPUID_OBJ))
+		LEA_PLATFORM=IA32
+	else
+		ifeq (x86cpuid.o,$(CPUID_OBJ))
+			LEA_PLATFORM=IA32
+		else
+			ifneq ($(findstring armv4cpuid.o,$(CPUID_OBJ)),)
+				LEA_PLATFORM=armv4
+			else
+				ifneq ($(findstring arm64cpuid.o,$(CPUID_OBJ)),)
+					LEA_PLATFORM=arm64
+				else
+					LEA_PLATFORM=generic
+				endif
+			endif
+		endif
+	endif
+endif
+
+#OPENSSL DOESN'T SUPPORT INTRINSIC COMPILE OPTIONS WITHOUT SSE2, AESNI, SHA
+ifeq (generic, $(LEA_PLATFORM))
+CFLAGS += -DNO_LEA_SIMD
+else ifeq ($(LEA_PLATFORM),IA32)
+	ifeq ($(LEA_CC),gcc)
+		#intel_gcc
+
+		ifneq ($(shell $(CC) --target-help 3>&1 2>&1 1>&2 | grep avx2),)
+			LEA_SIMD_AVX2 = -mavx2
+			LIBOBJ += lea_avx2.o
+			LIBSRC += lea_avx2.c
+		endif
+
+		ifneq ($(shell $(CC) --target-help 3>&1 2>&1 1>&2 | grep sse2),)
+			LEA_SIMD_SSE2 = -msse2
+			LIBOBJ += lea_sse.o
+			LIBSRC += lea_sse.c
+		endif
+
+		ifneq ($(shell $(CC) --target-help 3>&1 2>&1 1>&2 | grep xop),)
+			LEA_SIMD_XOP = -mxop
+			LIBOBJ += lea_xop.o
+			LIBSRC += lea_xop.c
+		endif
+
+	else ifeq($(LEA_CC),vc)
+
+		#intel_VC just ADD! VC will 'deal with them' properly
+		LEA_SIMD_AVX2 = /arch:AVX2
+		LEA_SIMD_SSE2 = /arch:SSE2
+		LEA_SIMD_XOP = /arch:SSE2
+		LIBOBJ += lea_avx2.o lea_sse2.o lea_xop.o #lea_gcm_pclmul.o
+		LIBSRC += lea_avx2.c lea_sse2.c lea_xop.c #lea_gcm_pclmul.c
+	endif
+
+else ifeq ($(LEA_PLATFORM),armv4)
+
+	ifeq ($(LEA_CC),gcc)
+		#armv4_gcc
+		ifneq ($(shell $(CC) --target-help 3>&1 2>&1 1>&2 | grep neon),)
+			ifneq ($(findstring neon,$(CFLAG))
+
+				ifneq ($(findstring mfloat-abi,$(CFLAG))
+					LEA_SIMD_NEON = -mfloat-abi=softfp -fpu=neon
+				else
+					LEA_SIMD_NEON = -fpu=neon
+				endif
+
+			endif #endof neon, cflag
+
+			LIBOBJ += lea_neon.o
+			LIBSRC += lea_neon.c
+		endif
+	endif
+
+else ifeq ($(LEA_PLATFORM),arm64)
+
+	ifeq ($(LEA_CC),gcc)
+
+		#arm64_gcc just add
+		LIBOBJ += lea_neon.o
+		LIBSRC += lea_neon.c
+	endif
+
+endif
+
+top:
+	(cd ../..; $(MAKE) DIRS=crypto SDIRS=$(DIR) sub_all)
+
+all:	lib
+
+lib:	$(LIBOBJ)
+	$(AR) $(LIB) $(LIBOBJ)
+	$(RANLIB) $(LIB) || echo Never mind.
+	@touch lib
+
+lea_avx2.o:	lea_avx2.c
+	$
+	$(CC) $(CFLAGS) $(LEA_SIMD_AVX2) -c -o $@ lea_avx2.c
+
+lea_sse.o:	lea_sse.c
+	$(CC) $(CFLAGS) $(LEA_SIMD_SSE2) -c -o $@ lea_sse.c
+
+lea_xop.o:	lea_xop.c
+	$(CC) $(CFLAGS) $(LEA_SIMD_XOP) -c -o $@ lea_xop.c
+
+lea_gcm_pclmul.o:	lea_gcm_pclmul.c
+	$(CC) $(CFLAGS) $(LEA_SIMD_PCLMUL) -c -o $@ lea_gcm_pclmul.c
+
+lea_neon.o:	lea_neon.o
+	$(CC) $(CFLAGS) $(LEA_SIMD_NEON) -c -o $@ lea_neon.c
+
+# GNU make "catch all"
+
+files:
+	$(PERL) $(TOP)/util/files.pl Makefile >> $(TOP)/MINFO
+
+links:
+	@$(PERL) $(TOP)/util/mklink.pl ../../include/openssl $(EXHEADER)
+	@$(PERL) $(TOP)/util/mklink.pl ../../test $(TEST)
+	@$(PERL) $(TOP)/util/mklink.pl ../../apps $(APPS)
+
+install:
+	@[ -n "$(INSTALLTOP)" ] # should be set by top Makefile...
+	@headerlist="$(EXHEADER)"; for i in $$headerlist ; \
+	do  \
+	(cp $$i $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i; \
+	chmod 644 $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i ); \
+	done;
+
+tags:
+	ctags $(SRC)
+
+tests:
+
+lint:
+	lint -DLINT $(INCLUDES) $(SRC)>fluff
+
+depend:
+	@[ -n "$(MAKEDEPEND)" ] # should be set by upper Makefile...
+	$(MAKEDEPEND) -- $(CFLAG) $(INCLUDES) $(DEPFLAG) $(LEA_SIMD_AVX2) $(LEA_SIMD_SSE2) $(LEA_SIMD_XOP) $(LEA_SIMD_PCLMUL) $(LEA_SIMD_NEON) -- $(PROGS) $(LIBSRC)
+
+dclean:
+	$(PERL) -pe 'if (/^# DO NOT DELETE THIS LINE/) {print; exit(0);}' $(MAKEFILE) >Makefile.new
+	mv -f Makefile.new $(MAKEFILE)
+
+clean:
+	rm -f *.s *.o *.obj lib tags core .pure .nfs* *.old *.bak fluff
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
