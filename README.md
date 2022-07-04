@@ -1,5 +1,5 @@
 # simplicity
-# 대구 스마트시트 프로젝트 개발 결과
+# Security Lib/Tool for SmartCity - IoT Smart Home
 
 simplicity include cms, cms-cli, pki lib 
 
