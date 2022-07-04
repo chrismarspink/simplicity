@@ -1,7 +1,7 @@
-# simplicity
+
 # Security Lib/Tool for SmartCity - IoT Smart Home
 
-simplicity include cms, cms-cli, pki lib 
+Lib/Tools include cms, cms-cli, pki lib 
 
 GZCMM은 IoT 환경에서 보안 라이브러리 및 관리 도구로
 - 자동화 : 패스프레이즈의 자동 생성
@@ -73,6 +73,28 @@ CSV 형식의 인증서 신청서를 불러온 후 발급 승인으로 상태를
 <p align="left"> <img src="gzcmm_keypair_gen.png" width="50%" title="hover text">  </p>
   
 ## 인증서 발급 (SIGNCMM)
-- 실제 인증서가 생성된다. CA 키 쌍을 이용한 서명이 수행
+- 실제 인증서가 생성된다. CA 키 쌍을 이용한 서명을 수행한다.
 - ./gzcms-cli --ca signcmm --userid <ID> --config <CFG_FILE>
 <p align="left"> <img src="gzcmm_signcmm.png" width="50%" title="hover text">  </p>
+
+## 인증서 내보내기 (EXPORT)
+- 사용자 인증서를 USB로 내보낸다. 생성된 USB는 특정 디바이스에서만 이용할 수 있도록 암호화 되어 있다. 
+- ./gzcms-cli --ca gentoken 명령을 이용한다. 
+<p align="left"> <img src="gzcmm_gentoken.png" width="50%" title="hover text">  </p>
+  
+## 인증서 폐지 신청(REVOKE)
+- 사용자 인증서를 폐지(revoked) 상태로 변경한다. 실제 CRL포함되지는 않으며, 폐지 상태 인증서는 폐지목록 생성 시 일괄적으로 CRL에 추가된다
+- ./gzcms-cli --ca revoke --usrid <ID> 명령을 이용한다. 
+- 폐지 사유를 추가하는 경우 "revoke_reason" 옵션을 이용한다. 
+<p align="left"> <img src="gzcmm_revoke.png" width="50%" title="hover text">  </p>
+  
+## 인증서 폐지목록 - CRL 생성(GENCRL)
+- 폐지(revoked) 상태 인증서를 이용 CRL을 생성하고 CA 개인키로 서명한다. 
+- ./gzcms-cli --ca gencrl 명령을 이용한다. 
+<p align="left"> <img src="gzcmm_generate_crl.png" width="50%" title="hover text">  </p>
+  
+  
+# CMS Encrypt/Decrypt for IoT Smart Home
+gzcms-cli는 CMS(Cryptographic Message Syntax) 형식의 암호화/서명 데이터를 생성할 수 있다
+<p align="left"> <img src="gzcmm_file_encrypt.png" width="50%" title="hover text">  </p>
+  
