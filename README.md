@@ -5,3 +5,6 @@ simplicity include cms, cms-cli, pki lib
 
 
 ![life cycle](gzcmm_life_cycle.png)
+
+
+<p align="center"> <img src="gzcmm_keypass.png" width="50%" title="hover text"> <img src="gzcmm_ca_dir.png" width="350" alt="accessibility text"> </p>
