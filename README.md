@@ -37,3 +37,17 @@ GZCMM은 IoT 환경에서 보안 라이브러리 및 관리 도구로
 - 키 패스를 이용 패스워드들은 마스터키로 복호화할 수 있는 형태로 생성할 수 있으며 
 - 결과적으로 키 관리의 어려움을 크게 줄 일 수 있습니다. 
 <p align="left"> <img src="gzcmm_keypass.png" width="50%" title="hover text"> <img src="gzcmm_ca_dir.png" width="50%" alt="accessibility text"> </p>
+
+## CA 설정(CA_DIR)
+인증서 발급을 위해서 인증서 발급 기관(CA) 설정이 필요하다.
+- gzcms-cli(또는 gzcmm) 명령어를 이용하여 CA를 생성한다. 
+- CA키 쌍을 생성하기 전에 CA키와 대응되는 keyid를 생성한다.
+- gzcms-cli(또는 gzcmm) keypass 명령을 이용하여 keyid를 만든다.
+- gzcms-cli --keypass list 명령을 이용하여 keyid가 생성되었는지 확인 가능하다. 
+<p align="left"> <img src="gzcmm_keyid.png" width="50%" title="hover text"> <img src="gzcmm_ca_dir.png" width="50%" alt="accessibility text"> </p>
+<p align="left"> <img src="gzcmm_ca_dir.png" width="50%" title="hover text"> <img src="gzcmm_ca_dir.png" width="50%" alt="accessibility text"> </p>
+
+## CA 키 쌍 생성(NEWCA)
+실제 CA키 쌍을 생성한다.
+- gzcms-cli(또는 gzcmm) --ca newca 명령을 이용한다. 
+<p align="left"> <img src="gzcmm_newca.png" width="50%" title="hover text"> <img src="gzcmm_ca_dir.png" width="50%" alt="accessibility text"> </p>
