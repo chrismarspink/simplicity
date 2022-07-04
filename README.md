@@ -86,7 +86,7 @@ CSV 형식의 인증서 신청서를 불러온 후 발급 승인으로 상태를
 - 사용자 인증서를 폐지(revoked) 상태로 변경한다. 실제 CRL포함되지는 않으며, 폐지 상태 인증서는 폐지목록 생성 시 일괄적으로 CRL에 추가된다
 - ./gzcms-cli --ca revoke --usrid <ID> 명령을 이용한다. 
 - 폐지 사유를 추가하는 경우 "revoke_reason" 옵션을 이용한다. 
-<p align="left"> <img src="gzcmm_revoke.png" width="50%" title="hover text">  </p>
+<p align="left"> <img src="gzcmm_revoke_request.png" width="50%" title="hover text">  </p>
   
 ## 인증서 폐지목록 - CRL 생성(GENCRL)
 - 폐지(revoked) 상태 인증서를 이용 CRL을 생성하고 CA 개인키로 서명한다. 
@@ -105,3 +105,15 @@ CSV 형식의 인증서 신청서를 불러온 후 발급 승인으로 상태를
 - gzcms-cli 명령을 이용하여 SignedData, EnvelopedData를 생성, 검증/복호화, 파싱(parsing)하는 것이 가능하다
 - 사용법은 gzcms-cli --help명령을 통해 확인 가능하다.
 <p align="left"> <img src="gzcmm_client_help.png" width="50%" title="hover text">  </p>
+  
+  
+# ECCPx Encrypt/Decrypt for IoT Smart Home
+- ECCP1/P2 암호화는 데이터 전송 대역폭이 극히 작은 환경에서도 데이터의 암호화가 가능하도록 하는 그린존시큐리티의 암호화 라이브러리이다.
+- ECCP1/2는 특허 기술로 공개키 암호화 기술을 사용하면서 동시에 원본 데이터 + 4바이트의 페이로드만을 추가로 사용한다. 
+- LoRA와 같이 네트워크 환경이 극단적인 경우에도 공개키 암호화가 가능하다. 
+<p align="left"> <img src="gzcmm_eccpx.png" width="80%" title="hover text">  </p>
+  
+
+
+  
+## 파일 암호화
