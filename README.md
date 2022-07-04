@@ -95,6 +95,13 @@ CSV 형식의 인증서 신청서를 불러온 후 발급 승인으로 상태를
   
   
 # CMS Encrypt/Decrypt for IoT Smart Home
-gzcms-cli는 CMS(Cryptographic Message Syntax) 형식의 암호화/서명 데이터를 생성할 수 있다
+  
+## 파일 암호화
+- gzcms-cli는 CMS(Cryptographic Message Syntax) 형식의 암호화/서명 데이터를 생성할 수 있다.
+- gzcmm은 기본적으로 인증서/개인키 쌍을 이용한 EnvelopedMessage 형식의 암호문을 생성한다. 
 <p align="left"> <img src="gzcmm_file_encrypt.png" width="50%" title="hover text">  </p>
   
+## GZCMM 이용한 암호/서명
+- gzcms-cli 명령을 이용하여 SignedData, EnvelopedData를 생성, 검증/복호화, 파싱(parsing)하는 것이 가능하다
+- 사용법은 gzcms-cli --help명령을 통해 확인 가능하다.
+<p align="left"> <img src="gzcmm_client_help.png" width="50%" title="hover text">  </p>
