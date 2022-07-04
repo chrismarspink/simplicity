@@ -60,3 +60,19 @@ GZCMM은 CSV 형식의 인증서 신청서를 불러오는 것이 가능하다
 - gzcms-cli(또는 gzcmm) --req importcsv 명령을 이용한다. 
 - csv형식의 인증서 신청서는 대량의 인증서 신청을 한번에 처리하는 경우 유용하며, 인증서와 사용자 개인키를 인증기관에서 동시에 생성한다. 
 <p align="left"> <img src="gzcmm_import.png" width="50%" title="hover text">  </p>
+
+## 인증서 발급 승인(APPROVAL)
+CSV 형식의 인증서 신청서를 불러온 후 발급 승인으로 상태를 변경한다.
+- 발급 승인은 ./gzcms-cli --ca approval --userid <USERID> ... 를 이용하여 승인 가능하다. 
+- --reqsection <SEC> 옵션을 이용하여 인증서 신청서 생성 옵션을 지정한다. 일반적으로 서버인증서인지 사용자 인증서인지 구분하여 발급하는데 유용하다. 
+<p align="left"> <img src="gzcmm_approval.png" width="50%" title="hover text">  </p>
+> 발급승인의 결과물은 '인증서'가 아니라 개인키 + 인증서신청서이다. 
+  
+## 인증서 발급 승인(APPROVAL) - 키쌍 생성
+- 발급승인의 결과물인 개인키 + 인증서신청서 확인
+<p align="left"> <img src="gzcmm_keypair_gen.png" width="50%" title="hover text">  </p>
+  
+## 인증서 발급 (SIGNCMM)
+- 실제 인증서가 생성된다. CA 키 쌍을 이용한 서명이 수행
+- ./gzcms-cli --ca signcmm --userid <ID> --config <CFG_FILE>
+<p align="left"> <img src="gzcmm_signcmm.png" width="50%" title="hover text">  </p>
